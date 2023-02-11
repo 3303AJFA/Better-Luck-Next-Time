@@ -13,21 +13,6 @@ namespace Game.Player
         private Transform myTransform;
         Vector3 dir = Vector3.zero;
 
-        private void OnDrawGizmos()
-        {
-            Gizmos.color = Color.green;
-            Gizmos.DrawLine(transform.position, (transform.position + new Vector3(0.5f, 0.25f) * TileDistance)); // forward
-
-            Gizmos.color = Color.red;
-            Gizmos.DrawLine(transform.position, (transform.position + new Vector3(0.5f, -0.25f) * TileDistance)); // right
-
-            Gizmos.color = Color.blue;
-            Gizmos.DrawLine(transform.position, (transform.position - new Vector3(0.5f, 0.25f) * TileDistance)); // back
-
-            Gizmos.color = Color.cyan;
-            Gizmos.DrawLine(transform.position, (transform.position - new Vector3(0.5f, -0.25f) * TileDistance)); // left
-        }
-
         private void Start()
         {
             myTransform = transform;
@@ -36,25 +21,27 @@ namespace Game.Player
 
         void Update()
         {
+            Vector3 playerPos = new Vector3(myTransform.position.x, 0, myTransform.position.z);
+
             if (Input.GetKeyDown(KeyCode.W))
             {
-                dir = myTransform.position + new Vector3(0.5f, 0.25f) * TileDistance;
+                dir = playerPos + Vector3.forward * TileDistance;
             }
-            else if(Input.GetKeyDown(KeyCode.S))
+            else if (Input.GetKeyDown(KeyCode.S))
             {
-                dir = myTransform.position - new Vector3(0.5f, 0.25f) * TileDistance;
+                dir = playerPos - Vector3.forward * TileDistance;
             }
             else if (Input.GetKeyDown(KeyCode.A))
             {
-                dir = myTransform.position - new Vector3(0.5f, -0.25f) * TileDistance;
+                dir = playerPos + Vector3.left * TileDistance;
             }
             else if (Input.GetKeyDown(KeyCode.D))
             {
-                dir = myTransform.position + new Vector3(0.5f, -0.25f) * TileDistance;
+                dir = playerPos - Vector3.left * TileDistance;
             }
 
             Vector3Int tilePos = MovementMap.WorldToCell(dir);
-            if(MovementMap.HasTile(tilePos))
+            if (MovementMap.HasTile(tilePos))
             {
                 Vector3 targetPos = MovementMap.CellToWorld(tilePos);
                 myTransform.position = targetPos;
