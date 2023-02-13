@@ -2,45 +2,44 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Tilemaps;
+using UnityEngine.InputSystem;
 
 namespace Game.Player
 {
+    using Input;
+
     public class PlayerController : MonoBehaviour
     {
         [SerializeField] private Tilemap MovementMap;
         [SerializeField] private float TileDistance = 1.2f;
 
         private Transform myTransform;
-        Vector3 dir = Vector3.zero;
+        private Vector3 direction;
 
         private void Start()
         {
             myTransform = transform;
-            dir = myTransform.position;
+            direction = myTransform.position;
+
+            GameInput.Instance.inputActions.Player.Movement.performed += OnMoveInputPressed;
+
+            PlayerMove(Vector2.zero, new Vector3(myTransform.position.x, 0, myTransform.position.z));
         }
 
-        void Update()
+        private void OnMoveInputPressed(InputAction.CallbackContext context)
         {
             Vector3 playerPos = new Vector3(myTransform.position.x, 0, myTransform.position.z);
 
-            if (Input.GetKeyDown(KeyCode.W))
-            {
-                dir = playerPos + Vector3.forward * TileDistance;
-            }
-            else if (Input.GetKeyDown(KeyCode.S))
-            {
-                dir = playerPos - Vector3.forward * TileDistance;
-            }
-            else if (Input.GetKeyDown(KeyCode.A))
-            {
-                dir = playerPos + Vector3.left * TileDistance;
-            }
-            else if (Input.GetKeyDown(KeyCode.D))
-            {
-                dir = playerPos - Vector3.left * TileDistance;
-            }
+            PlayerMove(context.ReadValue<Vector2>(), playerPos);
+        }
 
-            Vector3Int tilePos = MovementMap.WorldToCell(dir);
+        private void PlayerMove(Vector2 dir, Vector3 playerPos)
+        {
+            Vector2 invertedDir = new Vector2(dir.y, dir.x);
+
+            direction = playerPos + new Vector3(invertedDir.y, 0, invertedDir.x) * TileDistance;
+
+            Vector3Int tilePos = MovementMap.WorldToCell(direction);
             if (MovementMap.HasTile(tilePos))
             {
                 Vector3 targetPos = MovementMap.CellToWorld(tilePos);
