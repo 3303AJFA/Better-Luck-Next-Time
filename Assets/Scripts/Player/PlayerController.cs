@@ -10,16 +10,22 @@ namespace Game.Player
 
     public class PlayerController : MonoBehaviour
     {
+        [SerializeField] private GameObject Visual;
+        [Space]
         [SerializeField] private Tilemap MovementMap;
         [SerializeField] private float TileDistance = 1.2f;
 
         private Transform myTransform;
         private Vector3 direction;
+        private Camera cam;
 
         private void Start()
         {
             myTransform = transform;
             direction = myTransform.position;
+            cam = Camera.main;
+
+            Visual.transform.LookAt(cam.transform.position);
 
             GameInput.Instance.inputActions.Player.Movement.performed += OnMoveInputPressed;
 
