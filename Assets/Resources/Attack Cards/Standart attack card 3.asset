@@ -10,8 +10,8 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: a1644d16ff58f8848b45395ea4857b65, type: 3}
-  m_Name: Standart card
+  m_Name: Standart attack card 3
   m_EditorClassIdentifier: 
-  Icon: {fileID: 10913, guid: 0000000000000000f000000000000000, type: 0}
-  Description: Standart card
-  Damage: 10
+  Icon: {fileID: 7482667652216324306, guid: c83afb3c3e0967a46bf20ad9645141ec, type: 3}
+  Description: Stadart attack card
+  Damage: 3

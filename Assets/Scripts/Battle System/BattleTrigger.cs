@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using NaughtyAttributes;
 
 namespace Game.BattleSystem
 {
@@ -9,11 +10,12 @@ namespace Game.BattleSystem
 
     public class BattleTrigger : MonoBehaviour
     {
-        [SerializeField, NaughtyAttributes.Scene] private int BattleSceneId = 1;
+        [SerializeField, Tag] private string PlayerTag = "Player";
+        [SerializeField, Scene] private int BattleSceneId = 1;
 
         private void OnTriggerEnter(Collider other)
         {
-            if(other.TryGetComponent<PlayerController>(out PlayerController player))
+            if(other.CompareTag(PlayerTag))
             {
                 SceneManager.LoadScene(BattleSceneId);
             }

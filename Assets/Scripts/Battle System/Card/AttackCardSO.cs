@@ -3,13 +3,13 @@ using System.Collections.Generic;
 using UnityEngine;
 using NaughtyAttributes;
 
-namespace Game.BattleSystem
+namespace Game.BattleSystem.Cards
 {
-    public abstract class CardSO : ScriptableObject
+    public abstract class AttackCardSO : ScriptableObject
     {
         // Variables
         [ShowAssetPreview] public Sprite Icon;
-        [ResizableTextArea] public string Description;
+        [ResizableTextArea] public string Description = "Stadart attack card";
         [Space]
         public float Damage;
 
