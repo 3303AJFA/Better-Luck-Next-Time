@@ -13,5 +13,6 @@ MonoBehaviour:
   m_Name: Standart attack card 3
   m_EditorClassIdentifier: 
   Icon: {fileID: 7482667652216324306, guid: c83afb3c3e0967a46bf20ad9645141ec, type: 3}
-  Description: Stadart attack card
-  Damage: 3
+  CardName: Standart card
+  CardDescription: Stadart attack card
+  Damage: 10

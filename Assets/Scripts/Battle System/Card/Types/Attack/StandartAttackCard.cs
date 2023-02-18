@@ -9,7 +9,7 @@ namespace Game.BattleSystem.Cards.Attack
     {
         public override void Activate()
         {
-            // Logic for attacking ...
+            BattleManager.Instance.HurtEnemy(Damage);
         }
     }
 }

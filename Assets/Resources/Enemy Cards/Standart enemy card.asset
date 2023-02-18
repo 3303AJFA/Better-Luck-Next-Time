@@ -12,6 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 206e4bbcd9363224db4ad77ea8854318, type: 3}
   m_Name: Standart enemy card
   m_EditorClassIdentifier: 
-  EnemyPrefab: {fileID: 0}
-  Damage: 1
-  Health: 3
+  EnemyPrefab: {fileID: 6538601590556657960, guid: 04b7a846da2ce4a4b95a73d9f1f301ab,
+    type: 3}
+  Damage: 5
+  Health: 10

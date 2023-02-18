@@ -9,7 +9,9 @@ namespace Game.BattleSystem.Cards
     {
         // Variables
         [ShowAssetPreview] public Sprite Icon;
-        [ResizableTextArea] public string Description = "Stadart attack card";
+        [Space]
+        public string CardName;
+        [ResizableTextArea] public string CardDescription = "Stadart attack card";
         [Space]
         public float Damage;
 

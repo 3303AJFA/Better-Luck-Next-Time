@@ -18,6 +18,6 @@ namespace Game.BattleSystem.Cards
             enemy = enemyOnBattle;
         }
 
-        public virtual void Attack() { }
+        public virtual void Activate() { }
     }
 }
