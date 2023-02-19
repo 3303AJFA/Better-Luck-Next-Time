@@ -32,6 +32,11 @@ namespace Game.Player
             PlayerMove(Vector2.zero, new Vector3(myTransform.position.x, 0, myTransform.position.z));
         }
 
+        private void OnDisable()
+        {
+            GameInput.Instance.inputActions.Player.Movement.performed -= OnMoveInputPressed;
+        }
+
         private void OnMoveInputPressed(InputAction.CallbackContext context)
         {
             Vector3 playerPos = new Vector3(myTransform.position.x, 0, myTransform.position.z);
