@@ -19,7 +19,9 @@ namespace Game.BattleSystem
     {
         public static BattleManager Instance;
 
-        [SerializeField] private AttackCardSO[] AttackCards;
+        [Header("Cards")]
+        [SerializeField] private AttackCardSO[] AllCards;
+        [SerializeField] private int MaxCardAmount = 3;
         [field: SerializeField] public EnemyCardSO EnemyCard { get; private set; }
 
         [Header("UI")]
@@ -57,12 +59,19 @@ namespace Game.BattleSystem
                 }
                 else if(value == Turn.Player)
                 {
+                    if(CurrentCards.Count <= 0 | CurrentCards == null)
+                    {
+                        FinishBattle();
+                    }
+
                     AttackCardVisual_Parent_CanvasGroup.alpha = 1f;
                 }
 
-                Debug.Log(m_CurrentTurn);
+                Debug.Log(m_CurrentTurn + " Turn!");
             } 
         }
+
+        [HideInInspector] public List<AttackCardSO> CurrentCards = new List<AttackCardSO>();
 
         private void Awake()
         {
@@ -71,8 +80,15 @@ namespace Game.BattleSystem
 
         private void Start()
         {
+            // Select card in round
+            for (int i = 0; i < MaxCardAmount; i++)
+            {
+                AttackCardSO selectedCard = AllCards[Random.Range(0, AllCards.Length)];
+                CurrentCards.Add(selectedCard);
+            }
+
             // Spawn cards
-            foreach (var card in AttackCards)
+            foreach (var card in CurrentCards)
             {
                 CardVisualOnUI visual = Instantiate(AttackCardVisual, AttackCardVisual_Parent).GetComponent<CardVisualOnUI>();
                 visual.Initialize(card);
@@ -93,8 +109,24 @@ namespace Game.BattleSystem
             if(CurrentTurn == Turn.Player)
             {
                 card.Activate();
+                CurrentCards.Remove(card);
 
-                StartCoroutine(ChangeTurn(Turn.Enemy, 0));
+                Player.Energy += card.GivenEnergy;
+                if(Player.Energy >= Player.MaxEnergy)
+                {
+                    int chance = Random.Range(0, 2); // return 0 or 1
+                    Debug.Log(chance);
+                    if(chance == 1)
+                    {
+                        HurtPlayer(card.TakenHealth);
+                    }
+                }
+                else
+                {
+                    HurtPlayer(card.TakenHealth);
+                }
+
+                StartCoroutine(ChangeTurn(Turn.Enemy, TurnChangeTime));
             }
         }
 
@@ -107,6 +139,10 @@ namespace Game.BattleSystem
         public void HurtEnemy(float dmg)
         {
             Enemy.TakeDamage(dmg);
+        }
+        public void HurtPlayer(float dmg)
+        {
+            Player.TakeDamage(dmg);
         }
 
         public void FinishBattle()

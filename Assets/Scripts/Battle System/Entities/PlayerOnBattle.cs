@@ -9,10 +9,15 @@ namespace Game.BattleSystem
     {
         [Header("Visual")]
         [SerializeField] private Image HealthFillAmount;
+        [SerializeField] private Image EnergyFillAmount;
 
         [Header("Health")]
         private float m_Health;
-        [SerializeField] private float m_MaxHealth;
+        [SerializeField] private float MaxHealth;
+
+        [Header("Energy")]
+        private float m_Energy;
+        public float MaxEnergy;
 
         public float Health
         {
@@ -24,13 +29,31 @@ namespace Game.BattleSystem
             {
                 m_Health = value;
 
-                HealthFillAmount.fillAmount = m_Health / m_MaxHealth;
+                HealthFillAmount.fillAmount = m_Health / MaxHealth;
+            }
+        }
+        public float Energy {
+            get 
+            {
+                return m_Energy;
+            }
+            set
+            {
+                m_Energy = value;
+
+                if(m_Energy >= MaxEnergy)
+                {
+                    m_Energy = MaxEnergy;
+                }
+
+                EnergyFillAmount.fillAmount = m_Energy / MaxEnergy;
             }
         }
 
         private void Start()
         {
-            Health = m_MaxHealth;
+            Health = MaxHealth;
+            Energy = 0;
         }
 
         public void TakeDamage(float dmg)

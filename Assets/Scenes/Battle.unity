@@ -655,10 +655,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bf5b32cd3d9cf94479b57fb1f388cddf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  AttackCards:
+  AllCards:
   - {fileID: 11400000, guid: 59c486676c2cd0a4c88b5982cbbc1e9b, type: 2}
   - {fileID: 11400000, guid: 2c7cfae694585e741ae8a851b9cb2119, type: 2}
   - {fileID: 11400000, guid: 1e6e2a78c2d5e31438988dbb6d10447d, type: 2}
+  - {fileID: 11400000, guid: f1ae628698fc7bd4e819275e8a60c8f4, type: 2}
+  MaxCardAmount: 3
   <EnemyCard>k__BackingField: {fileID: 11400000, guid: 61e978822d43f5d48922e7504e332fab,
     type: 2}
   AttackCardVisual_Parent: {fileID: 1372403825}
@@ -671,6 +673,7 @@ MonoBehaviour:
   PlayerSpawnPosition: {fileID: 178752051}
   PlayerPrefab: {fileID: -2003259465475687122, guid: 337d16e3e62bb464f8f5f57a95874dec,
     type: 3}
+  CurrentCards: []
 --- !u!1 &1372403824
 GameObject:
   m_ObjectHideFlags: 0

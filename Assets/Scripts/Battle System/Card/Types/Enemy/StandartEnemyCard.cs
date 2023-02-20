@@ -13,7 +13,7 @@ namespace Game.BattleSystem.Cards.Enemy
         }
         public override void Activate()
         {
-            BattleManager.Instance.Player.TakeDamage(Damage);
+            BattleManager.Instance.HurtPlayer(Damage);
         }
     }
 }

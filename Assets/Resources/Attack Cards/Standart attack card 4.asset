@@ -10,11 +10,11 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: a1644d16ff58f8848b45395ea4857b65, type: 3}
-  m_Name: Standart attack card 3
+  m_Name: Standart attack card 4
   m_EditorClassIdentifier: 
-  Icon: {fileID: -9095717837082945937, guid: 2524cabcd8151214b8a0f93e5853a699, type: 3}
-  CardName: Capsule card
-  CardDescription: Bean
-  Damage: 10
-  TakenHealth: 3
+  Icon: {fileID: 7482667652216324306, guid: 055c104559950004b9aead56548ad39d, type: 3}
+  CardName: Triangle card
+  CardDescription: Triangle
+  Damage: 7
+  TakenHealth: 0
   GivenEnergy: 50
