@@ -25,11 +25,16 @@ namespace Game.BattleSystem
             {
                 return m_Health;
             }
-            private set
+            set
             {
                 m_Health = value;
 
                 HealthFillAmount.fillAmount = m_Health / MaxHealth;
+
+                if (Health <= 0)
+                {
+                    BattleManager.Instance.FinishBattle();
+                }
             }
         }
         public float Energy {
@@ -53,18 +58,7 @@ namespace Game.BattleSystem
         private void Start()
         {
             Health = MaxHealth;
-            Energy = 0;
-        }
-
-        public void TakeDamage(float dmg)
-        {
-            Health -= dmg;
-
-            if(Health <= 0)
-            {
-                Debug.Log("Player loose");
-                BattleManager.Instance.FinishBattle();
-            }
+            Energy = MaxEnergy;
         }
     }
 }

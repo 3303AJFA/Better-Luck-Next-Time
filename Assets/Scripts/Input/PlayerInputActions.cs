@@ -31,7 +31,7 @@ namespace Game.Input
             ""actions"": [
                 {
                     ""name"": ""Movement"",
-                    ""type"": ""Value"",
+                    ""type"": ""PassThrough"",
                     ""id"": ""0b0668b1-6c84-4ad0-8e65-3d5b0835d7c9"",
                     ""expectedControlType"": ""Vector2"",
                     ""processors"": ""NormalizeVector2"",

@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
+using TMPro;
+using NaughtyAttributes;
 
 namespace Game.BattleSystem
 {
@@ -20,7 +22,7 @@ namespace Game.BattleSystem
         public static BattleManager Instance;
 
         [Header("Cards")]
-        [SerializeField] private AttackCardSO[] AllCards;
+        [SerializeField, Expandable] private CardsListSO CardsList;
         [SerializeField] private int MaxCardAmount = 3;
         [field: SerializeField] public EnemyCardSO EnemyCard { get; private set; }
 
@@ -28,30 +30,32 @@ namespace Game.BattleSystem
         [SerializeField] private Transform AttackCardVisual_Parent;
         [SerializeField] private CanvasGroup AttackCardVisual_Parent_CanvasGroup;
         [SerializeField] private CardVisualOnUI AttackCardVisual;
+        [Space]
+        [SerializeField] private TextMeshProUGUI CurrentTurnText;
 
         [Header("Turn")]
         [SerializeField] private Turn m_CurrentTurn;
         [SerializeField] private float TurnChangeTime = 1.2f;
 
-        [Header("Spawn positions")]
+        [Header("Enemy positions")]
         [SerializeField] private Transform EnemySpawnPosition;
-        [SerializeField] private Transform PlayerSpawnPosition;
+        [SerializeField] private Image EnemyHealthBar;
 
-        [Header("Plaer")]
-        [SerializeField] private PlayerOnBattle PlayerPrefab;
+        [field: Header("Player")]
+        [field: SerializeField] public PlayerOnBattle Player { get; private set; }
 
         public EnemyOnBattle Enemy { get; private set; }
-        public PlayerOnBattle Player { get; private set; }
         public Turn CurrentTurn { 
             get
             {
                 return m_CurrentTurn;
             }
-            set
+            private set
             {
                 m_CurrentTurn = value;
+                CurrentTurnText.text = $"{m_CurrentTurn} Turn!";
 
-                if(value == Turn.Enemy)
+                if (value == Turn.Enemy)
                 {
                     Enemy.Attack();
 
@@ -67,7 +71,6 @@ namespace Game.BattleSystem
                     AttackCardVisual_Parent_CanvasGroup.alpha = 1f;
                 }
 
-                Debug.Log(m_CurrentTurn + " Turn!");
             } 
         }
 
@@ -83,57 +86,30 @@ namespace Game.BattleSystem
             // Select card in round
             for (int i = 0; i < MaxCardAmount; i++)
             {
-                AttackCardSO selectedCard = AllCards[Random.Range(0, AllCards.Length)];
+                AttackCardSO selectedCard = CardsList.AllAttackCards[Random.Range(0, CardsList.AllAttackCards.Length)];
                 CurrentCards.Add(selectedCard);
             }
 
             // Spawn cards
             foreach (var card in CurrentCards)
             {
-                CardVisualOnUI visual = Instantiate(AttackCardVisual, AttackCardVisual_Parent).GetComponent<CardVisualOnUI>();
-                visual.Initialize(card);
+                SpawnCard(card);
             }
 
             // Spawn Enemy
             Enemy = Instantiate(EnemyCard.EnemyPrefab, EnemySpawnPosition.position, Quaternion.identity).GetComponent<EnemyOnBattle>();
-            Enemy.Initialize(EnemyCard);
+            Enemy.Initialize(EnemyCard, EnemyHealthBar);
 
-            // Spawn Player
-            Player = Instantiate(PlayerPrefab.gameObject, PlayerSpawnPosition.position, Quaternion.identity).GetComponent<PlayerOnBattle>();
-
+            // Starting Player
             CurrentTurn = Turn.Player;
         }
 
         public void UseCard(AttackCardSO card)
         {
-            if(CurrentTurn == Turn.Player)
-            {
-                card.Activate();
-                CurrentCards.Remove(card);
+            card.Activate();
+            CurrentCards.Remove(card);
 
-                Player.Energy += card.GivenEnergy;
-                if(Player.Energy >= Player.MaxEnergy)
-                {
-                    int chance = Random.Range(0, 2); // return 0 or 1
-                    Debug.Log(chance);
-                    if(chance == 1)
-                    {
-                        HurtPlayer(card.TakenHealth);
-                    }
-                }
-                else
-                {
-                    HurtPlayer(card.TakenHealth);
-                }
-
-                StartCoroutine(ChangeTurn(Turn.Enemy, TurnChangeTime));
-            }
-        }
-
-        public IEnumerator ChangeTurn(Turn turn, float time = 1.2f)
-        {
-            yield return new WaitForSeconds(time);
-            CurrentTurn = turn;
+            StartCoroutine(ChangeTurn(Turn.Enemy, TurnChangeTime));
         }
 
         public void HurtEnemy(float dmg)
@@ -142,7 +118,7 @@ namespace Game.BattleSystem
         }
         public void HurtPlayer(float dmg)
         {
-            Player.TakeDamage(dmg);
+            Player.Health -= dmg;
         }
 
         public void FinishBattle()
@@ -151,5 +127,18 @@ namespace Game.BattleSystem
 
             SceneManager.LoadScene(0);
         }
+
+        #region Utilities
+        public IEnumerator ChangeTurn(Turn turn, float time = 1.2f)
+        {
+            yield return new WaitForSeconds(time);
+            CurrentTurn = turn;
+        }
+        private void SpawnCard(AttackCardSO cardData)
+        {
+            CardVisualOnUI visual = Instantiate(AttackCardVisual, AttackCardVisual_Parent).GetComponent<CardVisualOnUI>();
+            visual.Initialize(cardData);
+        }
+        #endregion
     }
 }

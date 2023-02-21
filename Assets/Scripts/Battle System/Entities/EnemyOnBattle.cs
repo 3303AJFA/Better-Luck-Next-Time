@@ -9,8 +9,7 @@ namespace Game.BattleSystem
 
     public class EnemyOnBattle : MonoBehaviour
     {
-        [Header("Visual")]
-        [SerializeField] private Image HealthFillAmount;
+        private Image HealthFillAmount;
 
         public float Damage { 
             get 
@@ -38,8 +37,11 @@ namespace Game.BattleSystem
 
         private EnemyCardSO card;
 
-        public void Initialize(EnemyCardSO enemyCard)
+        public void Initialize(EnemyCardSO enemyCard, Image healthBar)
         {
+            HealthFillAmount = healthBar;
+            HealthFillAmount.fillAmount = 1;
+
             card = Instantiate(enemyCard);
             card.Initialize(this);
 

@@ -23,6 +23,11 @@ namespace Game.Input
             EnablePlayerActionMap();
         }
 
+        public Vector2 GetMoveVector()
+        {
+            return inputActions.Player.Movement.ReadValue<Vector2>();
+        }
+
         public void EnablePlayerActionMap()
         {
             inputActions.Player.Enable();

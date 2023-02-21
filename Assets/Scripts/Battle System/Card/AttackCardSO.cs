@@ -8,16 +8,18 @@ namespace Game.BattleSystem.Cards
     public abstract class AttackCardSO : ScriptableObject
     {
         // Variables
-        [ShowAssetPreview] public Sprite Icon;
+        [ShowAssetPreview] public Sprite CardView;
         [Space]
         public string CardName;
         [ResizableTextArea] public string CardDescription = "Stadart attack card";
         [Space]
-        public float Damage;
+        [Tooltip("(Enemy health) - Damage")] public float Damage;
+        [Tooltip("(Player health) + HealthIncome")] public float HealthIncome;
+        [Tooltip("(Player energy) + EnergyIncome")] public float EnergyIncome;
 
-        [Header("Side effects")]
-        [Tooltip("Amount of HEALTH which TAKEN after use")] public float TakenHealth;
-        [Tooltip("Amount of ENERGY which GIVEN after use")] public float GivenEnergy;
+        [Header("Animator")]
+        public RuntimeAnimatorController CardAnimation;
+        public string Anim_disappearanceTrigger;
 
         // Logic
         public abstract void Activate();

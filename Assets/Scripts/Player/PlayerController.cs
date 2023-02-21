@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Tilemaps;
-using UnityEngine.InputSystem;
+using NaughtyAttributes;
 
 namespace Game.Player
 {
@@ -10,14 +10,22 @@ namespace Game.Player
 
     public class PlayerController : MonoBehaviour
     {
-        [SerializeField] private GameObject Visual;
+        [Header("Visual")]
+        [SerializeField] private Animator Anim;
+        [SerializeField, AnimatorParam("Anim")] private string Anim_moveTrigger;
         [Space]
+        [SerializeField] private GameObject Visual;
+
+        [Header("Movement")]
+        [SerializeField] private float timeBtwMoving = 0.3f;
         [SerializeField] private Tilemap MovementMap;
-        [SerializeField] private float TileDistance = 1.2f;
+        [SerializeField] private float TileDistance = 1f;
 
         private Transform myTransform;
         private Vector3 direction;
         private Camera cam;
+        private bool moveButtonIsPressed = false;
+        private float currentTimeBtwMoving = 0;
 
         private void Start()
         {
@@ -27,24 +35,42 @@ namespace Game.Player
 
             Visual.transform.LookAt(cam.transform.position);
 
-            GameInput.Instance.inputActions.Player.Movement.performed += OnMoveInputPressed;
+            GameInput.Instance.inputActions.Player.Movement.performed += x =>
+            {
+                Vector3 playerPos = new Vector3(myTransform.position.x, 0, myTransform.position.z);
 
-            PlayerMove(Vector2.zero, new Vector3(myTransform.position.x, 0, myTransform.position.z));
+                MovePlayer(x.ReadValue<Vector2>(), playerPos);
+                moveButtonIsPressed = true;
+                currentTimeBtwMoving = timeBtwMoving;
+            };
+            GameInput.Instance.inputActions.Player.Movement.canceled += x =>
+            {
+                moveButtonIsPressed = false;
+                currentTimeBtwMoving = timeBtwMoving;
+            };
+
+            MovePlayer(Vector2.zero, new Vector3(myTransform.position.x, 0, myTransform.position.z));
         }
 
-        private void OnDisable()
+        private void Update()
         {
-            GameInput.Instance.inputActions.Player.Movement.performed -= OnMoveInputPressed;
+            if(moveButtonIsPressed)
+            {
+                if(currentTimeBtwMoving <= 0)
+                {
+                    Vector3 playerPos = new Vector3(myTransform.position.x, 0, myTransform.position.z);
+                    MovePlayer(GameInput.Instance.GetMoveVector(), playerPos);
+
+                    currentTimeBtwMoving = timeBtwMoving;
+                }
+                else
+                {
+                    currentTimeBtwMoving -= Time.deltaTime;
+                }
+            }
         }
 
-        private void OnMoveInputPressed(InputAction.CallbackContext context)
-        {
-            Vector3 playerPos = new Vector3(myTransform.position.x, 0, myTransform.position.z);
-
-            PlayerMove(context.ReadValue<Vector2>(), playerPos);
-        }
-
-        private void PlayerMove(Vector2 dir, Vector3 playerPos)
+        private void MovePlayer(Vector2 dir, Vector3 playerPos)
         {
             Vector2 invertedDir = new Vector2(dir.y, dir.x);
 
@@ -54,7 +80,11 @@ namespace Game.Player
             if (MovementMap.HasTile(tilePos))
             {
                 Vector3 targetPos = MovementMap.CellToWorld(tilePos);
-                myTransform.position = targetPos;
+                if(myTransform.position != targetPos)
+                {
+                    myTransform.position = targetPos;
+                    Anim.SetTrigger(Anim_moveTrigger);
+                }
             }
         }
     }

@@ -10,6 +10,8 @@ namespace Game.BattleSystem.Cards.Attack
         public override void Activate()
         {
             BattleManager.Instance.HurtEnemy(Damage);
+            BattleManager.Instance.Player.Health += HealthIncome;
+            BattleManager.Instance.Player.Energy += EnergyIncome;
         }
     }
 }
