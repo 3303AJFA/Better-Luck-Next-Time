@@ -7,6 +7,6 @@ namespace Game.BattleSystem.Cards
     [CreateAssetMenu(fileName = "Cards list", menuName = "Game/Card/new Cards list", order = 0)]
     public class CardsListSO : ScriptableObject
     {
-        public AttackCardSO[] AllAttackCards;
+        public List<CardSO> AllAttackCards = new List<CardSO>();
     }
 }

@@ -1,0 +1,23 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a1644d16ff58f8848b45395ea4857b65, type: 3}
+  m_Name: Healing spray
+  m_EditorClassIdentifier: 
+  CardImage: {fileID: 10917, guid: 0000000000000000f000000000000000, type: 0}
+  Quality: 2
+  CardName: Healing spray
+  CardDescription: "\rIn 3303 there is no more effective medicine than this spray"
+  Damage: 0
+  HealthIncome: 10
+  EnergyIncome: 0
+  CardAnimation: {fileID: 9100000, guid: 9574590b62763804aaa0cc2b0f7ddd50, type: 2}
+  Anim_disappearanceTrigger: Destroy

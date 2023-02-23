@@ -13,7 +13,9 @@ MonoBehaviour:
   m_Name: Cards list
   m_EditorClassIdentifier: 
   AllAttackCards:
+  - {fileID: 11400000, guid: 772cac0df97bfaf4889773b3a0bbcc76, type: 2}
+  - {fileID: 11400000, guid: 0ffe9ec6cf7236a4cbb67e5a2347d2f3, type: 2}
+  - {fileID: 11400000, guid: 0bad74f5a84a29f4f9058c4fe57ef97c, type: 2}
   - {fileID: 11400000, guid: 59c486676c2cd0a4c88b5982cbbc1e9b, type: 2}
-  - {fileID: 11400000, guid: 2c7cfae694585e741ae8a851b9cb2119, type: 2}
-  - {fileID: 11400000, guid: 1e6e2a78c2d5e31438988dbb6d10447d, type: 2}
-  - {fileID: 11400000, guid: f1ae628698fc7bd4e819275e8a60c8f4, type: 2}
+  - {fileID: 11400000, guid: 06a7824aea00b304f8aca467bb950827, type: 2}
+  - {fileID: 11400000, guid: 607af6b1dccff904eb783ba0a54e5f73, type: 2}

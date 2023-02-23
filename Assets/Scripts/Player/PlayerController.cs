@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.InputSystem;
 using UnityEngine.Tilemaps;
 using NaughtyAttributes;
 
@@ -35,21 +36,23 @@ namespace Game.Player
 
             Visual.transform.LookAt(cam.transform.position);
 
-            GameInput.Instance.inputActions.Player.Movement.performed += x =>
-            {
-                Vector3 playerPos = new Vector3(myTransform.position.x, 0, myTransform.position.z);
-
-                MovePlayer(x.ReadValue<Vector2>(), playerPos);
-                moveButtonIsPressed = true;
-                currentTimeBtwMoving = timeBtwMoving;
-            };
-            GameInput.Instance.inputActions.Player.Movement.canceled += x =>
-            {
-                moveButtonIsPressed = false;
-                currentTimeBtwMoving = timeBtwMoving;
-            };
+            GameInput.Instance.inputActions.Player.Movement.performed += MovementPerfomed;
+            GameInput.Instance.inputActions.Player.Movement.canceled += MovementCanceled;
 
             MovePlayer(Vector2.zero, new Vector3(myTransform.position.x, 0, myTransform.position.z));
+        }
+        private void MovementPerfomed(InputAction.CallbackContext context)
+        {
+            Vector3 playerPos = new Vector3(transform.position.x, 0, transform.position.z);
+
+            MovePlayer(GameInput.Instance.GetMoveVector(), playerPos);
+            moveButtonIsPressed = true;
+            currentTimeBtwMoving = timeBtwMoving;
+        }
+        private void MovementCanceled(InputAction.CallbackContext context)
+        {
+            moveButtonIsPressed = false;
+            currentTimeBtwMoving = timeBtwMoving;
         }
 
         private void Update()
@@ -86,6 +89,12 @@ namespace Game.Player
                     Anim.SetTrigger(Anim_moveTrigger);
                 }
             }
+        }
+
+        private void OnDisable()
+        {
+            GameInput.Instance.inputActions.Player.Movement.performed -= MovementPerfomed;
+            GameInput.Instance.inputActions.Player.Movement.canceled -= MovementCanceled;
         }
     }
 }

@@ -5,11 +5,21 @@ using NaughtyAttributes;
 
 namespace Game.BattleSystem.Cards
 {
-    public abstract class AttackCardSO : ScriptableObject
+    public enum CardQuality
+    {
+        Common,
+        Uncommon,
+        Rare,
+        Epic,
+        Legendary
+    }
+
+    public abstract class CardSO : ScriptableObject
     {
         // Variables
-        [ShowAssetPreview] public Sprite CardView;
+        [ShowAssetPreview] public Sprite CardImage;
         [Space]
+        public CardQuality Quality = CardQuality.Common;
         public string CardName;
         [ResizableTextArea] public string CardDescription = "Stadart attack card";
         [Space]

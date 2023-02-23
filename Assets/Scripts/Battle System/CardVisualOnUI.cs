@@ -11,6 +11,13 @@ namespace Game.BattleSystem.UIVisual
 
     public class CardVisualOnUI : MonoBehaviour
     {
+        [System.Serializable]
+        private struct QualityColor
+        {
+            public Color Color;
+            public CardQuality Quality;
+        }
+
         [Header("Card variables")]
         [SerializeField] private Image CardBGImage;
         [SerializeField] private TextMeshProUGUI CardNameText;
@@ -29,17 +36,35 @@ namespace Game.BattleSystem.UIVisual
         [SerializeField] private Color PositiveColor = Color.white;
         [SerializeField] private Color NegativeColor = Color.white;
         [SerializeField] private Color NeutralColor = Color.white;
+        [Space]
+        [SerializeField] private List<QualityColor> QualityColors = new List<QualityColor>();
 
-        private AttackCardSO card;
+        private CardSO card;
 
-        public void Initialize(AttackCardSO attackCardSO)
+        public void Initialize(CardSO attackCardSO)
         {
             card = attackCardSO;
 
-            CardBGImage.sprite = card.CardView;
+            // Visual
+            SetCardFrontVisual();
+            SetCardAttackVariablesVisual();
+            SetCardQualityVisual();
+
+            // Animatior
+            Anim.runtimeAnimatorController = card.CardAnimation;
+            Anim_disappearanceTrigger = card.Anim_disappearanceTrigger;
+            Anim.enabled = true;
+        }
+
+        #region Visual initializing
+        private void SetCardFrontVisual()
+        {
+            CardBGImage.sprite = card.CardImage;
             CardNameText.text = card.CardName;
             CardDescriptionText.text = card.CardDescription;
-
+        }
+        private void SetCardAttackVariablesVisual()
+        {
             CardDamageText.text = "Damage: " + card.Damage;
 
             // Set Colors
@@ -51,16 +76,16 @@ namespace Game.BattleSystem.UIVisual
             string healthIncomeText_text = "";
             if (card.HealthIncome == 0)
                 healthIncomeText_text = $"<color=#{neutral}>{card.HealthIncome}</color> Health";
-            else if(card.HealthIncome > 0)
+            else if (card.HealthIncome > 0)
                 healthIncomeText_text = $"<color=#{positive}>+{card.HealthIncome}</color> Health";
-            else if(card.HealthIncome < 0)
+            else if (card.HealthIncome < 0)
                 healthIncomeText_text = $"<color=#{negative}>{card.HealthIncome}</color> Health";
 
             // Enegry Income
             string energyIncomeText_text = "";
             if (card.EnergyIncome == 0)
                 energyIncomeText_text = $"<color=#{neutral}>{card.EnergyIncome}</color> Energy";
-            else if(card.EnergyIncome > 0)
+            else if (card.EnergyIncome > 0)
                 energyIncomeText_text = $"<color=#{positive}>+{card.EnergyIncome}</color> Energy";
             else if (card.EnergyIncome < 0)
                 energyIncomeText_text = $"<color=#{negative}>{card.EnergyIncome}</color> Energy";
@@ -68,14 +93,18 @@ namespace Game.BattleSystem.UIVisual
             // Apply Energy/Health income
             HealthText.text = healthIncomeText_text;
             EnergyText.text = energyIncomeText_text;
-
-            // Animatior
-            Anim.runtimeAnimatorController = card.CardAnimation;
-
-            Anim_disappearanceTrigger = card.Anim_disappearanceTrigger;
-
-            Anim.enabled = true;
         }
+        private void SetCardQualityVisual()
+        {
+            foreach (var qualityData in QualityColors)
+            {
+                if (qualityData.Quality == card.Quality)
+                {
+                    CardNameText.color = qualityData.Color;
+                }
+            }
+        }
+        #endregion
 
         public void UseCard()
         {

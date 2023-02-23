@@ -10,13 +10,14 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: a1644d16ff58f8848b45395ea4857b65, type: 3}
-  m_Name: Standart attack card 1
+  m_Name: Battery
   m_EditorClassIdentifier: 
-  CardView: {fileID: 10905, guid: 0000000000000000f000000000000000, type: 0}
-  CardName: Circle card
-  CardDescription: Circle
-  Damage: 5
-  HealthIncome: -10
-  EnergyIncome: -5
+  CardImage: {fileID: 10917, guid: 0000000000000000f000000000000000, type: 0}
+  Quality: 0
+  CardName: Battery
+  CardDescription: In the electronic world, nowhere without batteries
+  Damage: 0
+  HealthIncome: 0
+  EnergyIncome: 2
   CardAnimation: {fileID: 9100000, guid: 9574590b62763804aaa0cc2b0f7ddd50, type: 2}
   Anim_disappearanceTrigger: Destroy

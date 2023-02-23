@@ -62,6 +62,17 @@ MonoBehaviour:
   PositiveColor: {r: 0.19339621, g: 1, b: 0.23982045, a: 1}
   NegativeColor: {r: 1, g: 0, b: 0, a: 1}
   NeutralColor: {r: 1, g: 1, b: 1, a: 1}
+  QualityColors:
+  - Color: {r: 0, g: 0, b: 0, a: 1}
+    Quality: 0
+  - Color: {r: 0.19215688, g: 1, b: 0.2392157, a: 1}
+    Quality: 1
+  - Color: {r: 0.19223925, g: 0.5153174, b: 0.9056604, a: 1}
+    Quality: 2
+  - Color: {r: 0.374339, g: 0.14159843, b: 0.6981132, a: 1}
+    Quality: 3
+  - Color: {r: 0.8773585, g: 0.55631053, b: 0.2027857, a: 1}
+    Quality: 4
 --- !u!225 &9058795712092598461
 CanvasGroup:
   m_ObjectHideFlags: 0
@@ -650,8 +661,8 @@ MonoBehaviour:
   m_fontMaterials: []
   m_fontColor32:
     serializedVersion: 2
-    rgba: 4281451007
-  m_fontColor: {r: 1, g: 0.75512207, b: 0.19339621, a: 1}
+    rgba: 4294967295
+  m_fontColor: {r: 1, g: 1, b: 1, a: 1}
   m_enableVertexGradient: 0
   m_colorMode: 3
   m_fontColorGradient:

@@ -28,6 +28,10 @@ namespace Game.BattleSystem
             set
             {
                 m_Health = value;
+                if(m_Health >= MaxHealth)
+                {
+                    m_Health = MaxHealth;
+                }
 
                 HealthFillAmount.fillAmount = m_Health / MaxHealth;
 
