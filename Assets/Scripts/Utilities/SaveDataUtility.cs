@@ -10,6 +10,9 @@ namespace Game.Utilities
         private static string defaultSavePath = $"{Application.dataPath}/";
         private static string dataType = "json";
 
+        public const string CARD_INVENTORY_PATH = "";
+        public const string CARD_INVENTORY_FILENAME = "cardInventory";
+
         public static void SaveData(object data, string fileName, string filePath = "", bool encrypt = true)
         {
             if(string.IsNullOrEmpty(filePath))

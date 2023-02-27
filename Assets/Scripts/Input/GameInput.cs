@@ -31,6 +31,12 @@ namespace Game.Input
         public void EnablePlayerActionMap()
         {
             inputActions.Player.Enable();
+            inputActions.UI.Disable();
+        }
+        public void EnableUIPlayerActionMap()
+        {
+            inputActions.Player.Disable();
+            inputActions.UI.Enable();
         }
     }
 }

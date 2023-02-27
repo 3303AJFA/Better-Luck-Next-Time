@@ -11,6 +11,7 @@ namespace Game.BattleSystem
     using Cards;
     using UIVisual;
     using Utilities;
+    using Player.Inventory;
 
     public enum Turn
     {
@@ -42,7 +43,7 @@ namespace Game.BattleSystem
         // UI VISUAL
         [Foldout("Card visual"), SerializeField] private Transform AttackCardVisual_Parent;
         [Foldout("Card visual"), SerializeField] private CanvasGroup AttackCardVisual_Parent_CanvasGroup;
-        [Foldout("Card visual"), SerializeField] private CardVisualOnUI AttackCardVisual;
+        [Foldout("Card visual"), SerializeField] private CardVisual AttackCardVisual;
 
         [Foldout("Turn visual"), SerializeField] private TextMeshProUGUI CurrentTurnText;
         [Foldout("Turn visual"), SerializeField] private Button SkipTurnButton;
@@ -82,7 +83,6 @@ namespace Game.BattleSystem
         }
 
         private string savePath;
-        private string cardInventoryFileName = "cardInventory";
         private CardInventory cardInventory;
         private List<CardSO> usedCards = new List<CardSO>();
 
@@ -216,74 +216,18 @@ namespace Game.BattleSystem
         }
         private void SpawnCard(CardSO cardData)
         {
-            CardVisualOnUI visual = Instantiate(AttackCardVisual, AttackCardVisual_Parent).GetComponent<CardVisualOnUI>();
+            CardVisual visual = Instantiate(AttackCardVisual, AttackCardVisual_Parent).GetComponent<CardVisual>();
             visual.Initialize(cardData);
         }
 
         private void Save()
         {
-            SaveDataUtility.SaveData(cardInventory, cardInventoryFileName, savePath);
+            SaveDataUtility.SaveData(cardInventory, SaveDataUtility.CARD_INVENTORY_FILENAME, savePath);
         }
         private void Load()
         {
-            cardInventory = (CardInventory)SaveDataUtility.LoadData<CardInventory>(savePath, cardInventoryFileName, new CardInventory(CardsList.AllAttackCards));
+            cardInventory = (CardInventory)SaveDataUtility.LoadData<CardInventory>(savePath, SaveDataUtility.CARD_INVENTORY_FILENAME, new CardInventory(CardsList.AllAttackCards));
         }
         #endregion
-    }
-
-    [System.Serializable]
-    public class CardInventory
-    {
-        public int CardsAmount { get { return Cards.Count; } }
-
-        public List<CardSO> Cards;
-
-        public CardInventory(List<CardSO> cardsOnInitialize = null)
-        {
-            if(cardsOnInitialize != null)
-            {
-                Cards = cardsOnInitialize;
-
-                CheckCardsForNull();
-            }
-            else
-            {
-                Cards = new List<CardSO>();
-            }
-        }
-
-        private void CheckCardsForNull()
-        {
-            List<CardSO> elementsToRemove = new List<CardSO>();
-
-            foreach (var card in Cards)
-            {
-                if (card == null)
-                    elementsToRemove.Add(card);
-            }
-
-            foreach (var cardToRemove in elementsToRemove)
-            {
-                Cards.Remove(cardToRemove);
-            }
-        }
-
-        public void RemoveCard(CardSO card)
-        {
-            Cards.Remove(card);
-        }
-        public void AddCard(CardSO card)
-        {
-            Cards.Add(card);
-        }
-        public CardSO GetRandomCard()
-        {
-            CardSO card = null;
-            if(CardsAmount > 0)
-            {
-                card = Cards[Random.Range(0, Cards.Count)];
-            }
-            return card;
-        }
     }
 }

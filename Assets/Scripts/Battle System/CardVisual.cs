@@ -9,7 +9,7 @@ namespace Game.BattleSystem.UIVisual
 {
     using Cards;
 
-    public class CardVisualOnUI : MonoBehaviour
+    public class CardVisual : MonoBehaviour
     {
         [System.Serializable]
         private struct QualityColor

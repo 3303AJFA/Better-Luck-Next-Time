@@ -27,6 +27,7 @@ namespace Game.Player
         private Camera cam;
         private bool moveButtonIsPressed = false;
         private float currentTimeBtwMoving = 0;
+        private bool canMove = true;
 
         private void Start()
         {
@@ -38,6 +39,7 @@ namespace Game.Player
 
             GameInput.Instance.inputActions.Player.Movement.performed += MovementPerfomed;
             GameInput.Instance.inputActions.Player.Movement.canceled += MovementCanceled;
+            PauseManager.Instance.OnPauseStatusShanged += OnPauseStateChanged;
 
             MovePlayer(Vector2.zero, new Vector3(myTransform.position.x, 0, myTransform.position.z));
         }
@@ -57,6 +59,9 @@ namespace Game.Player
 
         private void Update()
         {
+            if (!canMove)
+                return;
+
             if(moveButtonIsPressed)
             {
                 if(currentTimeBtwMoving <= 0)
@@ -91,10 +96,16 @@ namespace Game.Player
             }
         }
 
+        private void OnPauseStateChanged(bool inPause)
+        {
+            canMove = !inPause;
+        }
+
         private void OnDisable()
         {
             GameInput.Instance.inputActions.Player.Movement.performed -= MovementPerfomed;
             GameInput.Instance.inputActions.Player.Movement.canceled -= MovementCanceled;
+            PauseManager.Instance.OnPauseStatusShanged -= OnPauseStateChanged;
         }
     }
 }

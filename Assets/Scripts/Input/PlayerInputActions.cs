@@ -37,6 +37,24 @@ namespace Game.Input
                     ""processors"": ""NormalizeVector2"",
                     ""interactions"": """",
                     ""initialStateCheck"": true
+                },
+                {
+                    ""name"": ""Pause"",
+                    ""type"": ""Button"",
+                    ""id"": ""d4107ec6-8bc0-4db1-b75d-168d4170dd69"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Inventory"",
+                    ""type"": ""Button"",
+                    ""id"": ""71c863a8-4b93-4cf4-8d14-68da56acbaaa"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -94,6 +112,76 @@ namespace Game.Input
                     ""action"": ""Movement"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""130ba114-6703-499f-81d3-3f1708fe91b7"",
+                    ""path"": ""<Keyboard>/escape"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Keyboard"",
+                    ""action"": ""Pause"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""6f08dee2-71e3-4f18-b124-9f47996ca76a"",
+                    ""path"": ""<Keyboard>/e"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Keyboard"",
+                    ""action"": ""Inventory"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                }
+            ]
+        },
+        {
+            ""name"": ""UI"",
+            ""id"": ""1878ee18-ebe2-48fd-b3e1-0f0805243511"",
+            ""actions"": [
+                {
+                    ""name"": ""Close"",
+                    ""type"": ""Button"",
+                    ""id"": ""6c09212c-0a25-4c38-a7f8-34048dbcc39e"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""CloseInventory"",
+                    ""type"": ""Button"",
+                    ""id"": ""a6e8a9b1-cef8-485a-994e-64c97942c680"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                }
+            ],
+            ""bindings"": [
+                {
+                    ""name"": """",
+                    ""id"": ""db9604b9-a6ba-4abc-aeba-bb25928666f1"",
+                    ""path"": ""<Keyboard>/escape"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Keyboard"",
+                    ""action"": ""Close"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""8ccf21cd-0b96-4330-ba3d-bb976d6ffe28"",
+                    ""path"": ""<Keyboard>/e"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Keyboard"",
+                    ""action"": ""CloseInventory"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         }
@@ -109,6 +197,12 @@ namespace Game.Input
             // Player
             m_Player = asset.FindActionMap("Player", throwIfNotFound: true);
             m_Player_Movement = m_Player.FindAction("Movement", throwIfNotFound: true);
+            m_Player_Pause = m_Player.FindAction("Pause", throwIfNotFound: true);
+            m_Player_Inventory = m_Player.FindAction("Inventory", throwIfNotFound: true);
+            // UI
+            m_UI = asset.FindActionMap("UI", throwIfNotFound: true);
+            m_UI_Close = m_UI.FindAction("Close", throwIfNotFound: true);
+            m_UI_CloseInventory = m_UI.FindAction("CloseInventory", throwIfNotFound: true);
         }
 
         public void Dispose()
@@ -169,11 +263,15 @@ namespace Game.Input
         private readonly InputActionMap m_Player;
         private IPlayerActions m_PlayerActionsCallbackInterface;
         private readonly InputAction m_Player_Movement;
+        private readonly InputAction m_Player_Pause;
+        private readonly InputAction m_Player_Inventory;
         public struct PlayerActions
         {
             private @InputActions m_Wrapper;
             public PlayerActions(@InputActions wrapper) { m_Wrapper = wrapper; }
             public InputAction @Movement => m_Wrapper.m_Player_Movement;
+            public InputAction @Pause => m_Wrapper.m_Player_Pause;
+            public InputAction @Inventory => m_Wrapper.m_Player_Inventory;
             public InputActionMap Get() { return m_Wrapper.m_Player; }
             public void Enable() { Get().Enable(); }
             public void Disable() { Get().Disable(); }
@@ -186,6 +284,12 @@ namespace Game.Input
                     @Movement.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnMovement;
                     @Movement.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnMovement;
                     @Movement.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnMovement;
+                    @Pause.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnPause;
+                    @Pause.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnPause;
+                    @Pause.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnPause;
+                    @Inventory.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnInventory;
+                    @Inventory.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnInventory;
+                    @Inventory.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnInventory;
                 }
                 m_Wrapper.m_PlayerActionsCallbackInterface = instance;
                 if (instance != null)
@@ -193,10 +297,57 @@ namespace Game.Input
                     @Movement.started += instance.OnMovement;
                     @Movement.performed += instance.OnMovement;
                     @Movement.canceled += instance.OnMovement;
+                    @Pause.started += instance.OnPause;
+                    @Pause.performed += instance.OnPause;
+                    @Pause.canceled += instance.OnPause;
+                    @Inventory.started += instance.OnInventory;
+                    @Inventory.performed += instance.OnInventory;
+                    @Inventory.canceled += instance.OnInventory;
                 }
             }
         }
         public PlayerActions @Player => new PlayerActions(this);
+
+        // UI
+        private readonly InputActionMap m_UI;
+        private IUIActions m_UIActionsCallbackInterface;
+        private readonly InputAction m_UI_Close;
+        private readonly InputAction m_UI_CloseInventory;
+        public struct UIActions
+        {
+            private @InputActions m_Wrapper;
+            public UIActions(@InputActions wrapper) { m_Wrapper = wrapper; }
+            public InputAction @Close => m_Wrapper.m_UI_Close;
+            public InputAction @CloseInventory => m_Wrapper.m_UI_CloseInventory;
+            public InputActionMap Get() { return m_Wrapper.m_UI; }
+            public void Enable() { Get().Enable(); }
+            public void Disable() { Get().Disable(); }
+            public bool enabled => Get().enabled;
+            public static implicit operator InputActionMap(UIActions set) { return set.Get(); }
+            public void SetCallbacks(IUIActions instance)
+            {
+                if (m_Wrapper.m_UIActionsCallbackInterface != null)
+                {
+                    @Close.started -= m_Wrapper.m_UIActionsCallbackInterface.OnClose;
+                    @Close.performed -= m_Wrapper.m_UIActionsCallbackInterface.OnClose;
+                    @Close.canceled -= m_Wrapper.m_UIActionsCallbackInterface.OnClose;
+                    @CloseInventory.started -= m_Wrapper.m_UIActionsCallbackInterface.OnCloseInventory;
+                    @CloseInventory.performed -= m_Wrapper.m_UIActionsCallbackInterface.OnCloseInventory;
+                    @CloseInventory.canceled -= m_Wrapper.m_UIActionsCallbackInterface.OnCloseInventory;
+                }
+                m_Wrapper.m_UIActionsCallbackInterface = instance;
+                if (instance != null)
+                {
+                    @Close.started += instance.OnClose;
+                    @Close.performed += instance.OnClose;
+                    @Close.canceled += instance.OnClose;
+                    @CloseInventory.started += instance.OnCloseInventory;
+                    @CloseInventory.performed += instance.OnCloseInventory;
+                    @CloseInventory.canceled += instance.OnCloseInventory;
+                }
+            }
+        }
+        public UIActions @UI => new UIActions(this);
         private int m_KeyboardSchemeIndex = -1;
         public InputControlScheme KeyboardScheme
         {
@@ -209,6 +360,13 @@ namespace Game.Input
         public interface IPlayerActions
         {
             void OnMovement(InputAction.CallbackContext context);
+            void OnPause(InputAction.CallbackContext context);
+            void OnInventory(InputAction.CallbackContext context);
+        }
+        public interface IUIActions
+        {
+            void OnClose(InputAction.CallbackContext context);
+            void OnCloseInventory(InputAction.CallbackContext context);
         }
     }
 }
