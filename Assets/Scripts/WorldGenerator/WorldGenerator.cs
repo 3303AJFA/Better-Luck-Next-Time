@@ -7,17 +7,10 @@ namespace Game.World.Generator
 {
     public class WorldGenerator : MonoBehaviour
     {
-        [System.Serializable]
-        private struct Biomes
-        {
-            public TileBase Tile;
-            public GameObject[] AviableVisuals;
-        }
-
+        [SerializeField, NaughtyAttributes.Expandable] private WorldGenerationSettingsSO Settings;
+        [Space]
         [SerializeField] private Tilemap Map;
         [SerializeField] private Transform VisualObjectsParent;
-        [SerializeField] private List<Biomes> MapBiomes = new List<Biomes>();
-        [SerializeField] private Vector3 Offset = new Vector3(0, -0.5f, 0);
 
         private Dictionary<TileBase, GameObject> SelectedBiomes = new Dictionary<TileBase, GameObject>();
 
@@ -49,7 +42,7 @@ namespace Game.World.Generator
         }
         private void GenerateBiomes()
         {
-            foreach (var biome in MapBiomes)
+            foreach (var biome in Settings.MapBiomes)
             {
                 GameObject visual = biome.AviableVisuals[Random.Range(0, biome.AviableVisuals.Length)];
                 SelectedBiomes.Add(biome.Tile, visual);
@@ -66,7 +59,7 @@ namespace Game.World.Generator
                     TileBase tile = Map.GetTile(new Vector3Int(x, y));
                     if (tile != null)
                     {
-                        Instantiate(SelectedBiomes[tile], new Vector3(x, 0, y) + Offset, Quaternion.identity, VisualObjectsParent);
+                        Instantiate(SelectedBiomes[tile], new Vector3(x, SelectedBiomes[tile].transform.position.y, y) + Settings.Offset, Quaternion.identity, VisualObjectsParent);
                     }
                 }
             }

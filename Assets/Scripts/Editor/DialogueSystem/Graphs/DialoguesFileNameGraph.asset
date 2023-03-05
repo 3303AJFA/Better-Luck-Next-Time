@@ -1,0 +1,73 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0202a3095b7477a4091d56344f0af6b3, type: 3}
+  m_Name: DialoguesFileNameGraph
+  m_EditorClassIdentifier: 
+  <FileName>k__BackingField: DialoguesFileName
+  <Groups>k__BackingField: []
+  <Nodes>k__BackingField:
+  - <ID>k__BackingField: 52b44893-2eb4-43ed-9ead-ee08a009d198
+    <Name>k__BackingField: Start
+    <Text>k__BackingField: I... can't...
+    <Choices>k__BackingField:
+    - <Text>k__BackingField: What's wrong?
+      <NodeID>k__BackingField: 0a33925f-cf4e-4397-914d-3337e7da35d1
+    <GroupID>k__BackingField: 
+    <DialogueType>k__BackingField: 1
+    <Position>k__BackingField: {x: 952, y: 291}
+  - <ID>k__BackingField: 0a33925f-cf4e-4397-914d-3337e7da35d1
+    <Name>k__BackingField: Silence
+    <Text>k__BackingField: ...
+    <Choices>k__BackingField:
+    - <Text>k__BackingField: Next Dialogue
+      <NodeID>k__BackingField: 8d0799c0-d95b-4a0c-aba4-e14895ddac77
+    <GroupID>k__BackingField: 
+    <DialogueType>k__BackingField: 0
+    <Position>k__BackingField: {x: 1362, y: 291}
+  - <ID>k__BackingField: 8d0799c0-d95b-4a0c-aba4-e14895ddac77
+    <Name>k__BackingField: Why
+    <Text>k__BackingField: Why did this happend..
+    <Choices>k__BackingField:
+    - <Text>k__BackingField: Next Dialogue
+      <NodeID>k__BackingField: 1d1d48ce-88ee-4f09-9f69-94dc4c47539d
+    <GroupID>k__BackingField: 
+    <DialogueType>k__BackingField: 0
+    <Position>k__BackingField: {x: 1693, y: 291}
+  - <ID>k__BackingField: 1d1d48ce-88ee-4f09-9f69-94dc4c47539d
+    <Name>k__BackingField: What
+    <Text>k__BackingField: I just..
+    <Choices>k__BackingField:
+    - <Text>k__BackingField: Mayonnaise
+      <NodeID>k__BackingField: d5877d6f-87ce-4926-ade0-86ac154cbbec
+    - <Text>k__BackingField: Pip pimp pum bam
+      <NodeID>k__BackingField: d5877d6f-87ce-4926-ade0-86ac154cbbec
+    <GroupID>k__BackingField: 
+    <DialogueType>k__BackingField: 1
+    <Position>k__BackingField: {x: 1994, y: 291}
+  - <ID>k__BackingField: d5877d6f-87ce-4926-ade0-86ac154cbbec
+    <Name>k__BackingField: End
+    <Text>k__BackingField: ...
+    <Choices>k__BackingField:
+    - <Text>k__BackingField: Next Dialogue
+      <NodeID>k__BackingField: 
+    <GroupID>k__BackingField: 
+    <DialogueType>k__BackingField: 0
+    <Position>k__BackingField: {x: 2449, y: 291}
+  <OldGroupNames>k__BackingField: []
+  <OldUngroupedNodeNames>k__BackingField:
+  - Start
+  - Silence
+  - Why
+  - What
+  - End
+  <OldGroupedNodeNames>k__BackingField:
+    list: []

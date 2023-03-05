@@ -49,17 +49,20 @@ namespace Game
 
             PauseGame(paused);
         }
-        public void PauseGame(bool pauseEnabed)
+        public void PauseGame(bool pauseEnabed, bool visualisePanel = true)
         {
             OnPauseStatusShanged?.Invoke(pauseEnabed);
 
-            if(pauseEnabed)
+            if(visualisePanel)
             {
-                UIPanelManager.Instance.OpenPanel(PausePanel);
-            }
-            else
-            {
-                UIPanelManager.Instance.ClosePanel(PausePanel);
+                if (pauseEnabed)
+                {
+                    UIPanelManager.Instance.OpenPanel(PausePanel);
+                }
+                else
+                {
+                    UIPanelManager.Instance.ClosePanel(PausePanel);
+                }
             }
         }
 
