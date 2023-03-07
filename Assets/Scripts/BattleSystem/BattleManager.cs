@@ -103,7 +103,7 @@ namespace Game.BattleSystem
                 CardSO selectedCard = cardInventory.GetRandomCard();
                 if(selectedCard != null)
                 {
-                    cardInventory.RemoveCard(selectedCard);
+                    cardInventory.Cards.Remove(selectedCard);
                     CurrentCards.Add(selectedCard);
                 }
                 else
@@ -133,7 +133,7 @@ namespace Game.BattleSystem
             card.Activate();
             CurrentCards.Remove(card);
 
-            cardInventory.RemoveCard(card);
+            cardInventory.Cards.Remove(card);
             usedCards.Add(card);
 
             UpdateVisual();
@@ -155,7 +155,7 @@ namespace Game.BattleSystem
                 {
                     foreach (var usedCard in usedCards)
                     {
-                        cardInventory.AddCard(usedCard);
+                        cardInventory.Cards.Add(usedCard);
                     }
                     usedCards.Clear();
                 }
@@ -163,7 +163,7 @@ namespace Game.BattleSystem
                 CardSO selectedCard = cardInventory.GetRandomCard();
                 if(selectedCard != null)
                 {
-                    cardInventory.RemoveCard(selectedCard);
+                    cardInventory.Cards.Remove(selectedCard);
                     CurrentCards.Add(selectedCard);
                     SpawnCard(selectedCard);
                 }
@@ -193,7 +193,7 @@ namespace Game.BattleSystem
             {
                 foreach (var card in CurrentCards)
                 {
-                    cardInventory.AddCard(card);
+                    cardInventory.Cards.Add(card);
                 }
             }
 

@@ -10,13 +10,11 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 9f262818b55b0f4418296bad0176bdab, type: 3}
-  m_Name: Goodbye
+  m_Name: StartBattle
   m_EditorClassIdentifier: 
-  <DialogueName>k__BackingField: Goodbye
-  <Text>k__BackingField: Have a nice day!
-  <Choices>k__BackingField:
-  - <Text>k__BackingField: Next Dialogue
-    <NextDialogue>k__BackingField: {fileID: 0}
+  <DialogueName>k__BackingField: StartBattle
+  <Text>k__BackingField: Grrr
+  <Choices>k__BackingField: []
   <Item>k__BackingField: {fileID: 0}
-  <DialogueType>k__BackingField: 0
+  <DialogueType>k__BackingField: 3
   <IsStartingDialogue>k__BackingField: 0

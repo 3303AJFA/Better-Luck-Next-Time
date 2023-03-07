@@ -108,6 +108,8 @@ namespace DS.Windows
 
             this.AddManipulator(CreateNodeContextualMenu("Add Node (Single Choice)", DSDialogueType.SingleChoice));
             this.AddManipulator(CreateNodeContextualMenu("Add Node (Multiple Choice)", DSDialogueType.MultipleChoice));
+            this.AddManipulator(CreateNodeContextualMenu("Add Node (Take Item Choice)", DSDialogueType.TakeItemChoice));
+            this.AddManipulator(CreateNodeContextualMenu("Add Node (Start Battle Choice)", DSDialogueType.StartBattleChoice));
 
             this.AddManipulator(CreateGroupContextualMenu());
         }

@@ -7,6 +7,7 @@ using UnityEngine.UIElements;
 
 namespace DS.Elements
 {
+    using Game.Player.Inventory;
     using Data.Save;
     using Enumerations;
     using Utilities;
@@ -20,6 +21,7 @@ namespace DS.Elements
         public string Text { get; set; }
         public DSDialogueType DialogueType { get; set; }
         public DSGroup Group { get; set; }
+        public Item Item { get; set; }
 
         protected DSGraphView graphView;
         private Color defaultBackgroundColor;
@@ -51,11 +53,17 @@ namespace DS.Elements
 
         public virtual void Draw()
         {
-            /* TITLE CONTAINER */
+            AddTitleContainer();
+            AddInputContainer();
+            AddExtensionContainer();
+        }
 
+        #region Containers
+        protected virtual void AddTitleContainer()
+        {
             TextField dialogueNameTextField = DSElementUtility.CreateTextField(DialogueName, null, callback =>
             {
-                TextField target = (TextField) callback.target;
+                TextField target = (TextField)callback.target;
 
                 target.value = callback.newValue.RemoveWhitespaces().RemoveSpecialCharacters();
 
@@ -101,15 +109,15 @@ namespace DS.Elements
             );
 
             titleContainer.Insert(0, dialogueNameTextField);
-
-            /* INPUT CONTAINER */
-
+        }
+        protected virtual void AddInputContainer()
+        {
             Port inputPort = this.CreatePort("Dialogue Connection", Orientation.Horizontal, Direction.Input, Port.Capacity.Multi);
 
             inputContainer.Add(inputPort);
-
-            /* EXTENSION CONTAINER */
-
+        }
+        protected virtual void AddExtensionContainer()
+        {
             VisualElement customDataContainer = new VisualElement();
 
             customDataContainer.AddToClassList("ds-node__custom-data-container");
@@ -129,6 +137,7 @@ namespace DS.Elements
 
             extensionContainer.Add(customDataContainer);
         }
+        #endregion
 
         public void DisconnectAllPorts()
         {

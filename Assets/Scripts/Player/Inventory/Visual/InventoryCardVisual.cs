@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
 
-namespace Game.Player.Inventory
+namespace Game.Player.Inventory.Visual
 {
     using BattleSystem.Cards;
 

@@ -10,16 +10,16 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 9f262818b55b0f4418296bad0176bdab, type: 3}
-  m_Name: Needsmth
+  m_Name: DialogueName
   m_EditorClassIdentifier: 
-  <DialogueName>k__BackingField: Needsmth
-  <Text>k__BackingField: Do you need somethink?
+  <DialogueName>k__BackingField: DialogueName
+  <Text>k__BackingField: I hope, that can help you.
   <Choices>k__BackingField:
-  - <Text>k__BackingField: Yea
-    <NextDialogue>k__BackingField: {fileID: 11400000, guid: 34d6bc6486055574d8529533a901fbd9,
-      type: 2}
-  - <Text>k__BackingField: No, bye.
+  - <Text>k__BackingField: Thanks, bye!
     <NextDialogue>k__BackingField: {fileID: 11400000, guid: 33a38f0e50e775d4e91eaec75917329d,
+      type: 2}
+  - <Text>k__BackingField: ...
+    <NextDialogue>k__BackingField: {fileID: 11400000, guid: 9d44474025516104f9c1455d3894210c,
       type: 2}
   <Item>k__BackingField: {fileID: 0}
   <DialogueType>k__BackingField: 1

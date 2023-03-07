@@ -28,8 +28,13 @@ namespace DS.Elements
         {
             base.Draw();
 
-            /* OUTPUT CONTAINER */
+            AddOutputContainer();
 
+            RefreshExpandedState();
+        }
+
+        private void AddOutputContainer()
+        {
             foreach (DSChoiceSaveData choice in Choices)
             {
                 Port choicePort = this.CreatePort(choice.Text);
@@ -38,8 +43,6 @@ namespace DS.Elements
 
                 outputContainer.Add(choicePort);
             }
-
-            RefreshExpandedState();
         }
     }
 }

@@ -51,7 +51,6 @@ namespace Game.World.Generator
         private void GenerateWorld()
         {
             BoundsInt bounds = Map.cellBounds;
-
             for (int x = 0; x < bounds.size.x; x++)
             {
                 for (int y = 0; y < bounds.size.y; y++)

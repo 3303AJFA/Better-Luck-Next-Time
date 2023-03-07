@@ -16,7 +16,10 @@ MonoBehaviour:
   <Groups>k__BackingField:
   - <ID>k__BackingField: 6178fa6f-ad55-4ca7-b595-2d929a05192c
     <Name>k__BackingField: Choosing
-    <Position>k__BackingField: {x: 602.00006, y: -191.00003}
+    <Position>k__BackingField: {x: 602, y: -191}
+  - <ID>k__BackingField: 455ade0c-4b3f-4d3c-89e5-9ef51d4ce490
+    <Name>k__BackingField: TakeItem
+    <Position>k__BackingField: {x: 1444, y: -377}
   <Nodes>k__BackingField:
   - <ID>k__BackingField: b16e0cfa-73cc-4ed4-80ca-af82a0d7d2f7
     <Name>k__BackingField: Needsmth
@@ -29,19 +32,21 @@ MonoBehaviour:
     <GroupID>k__BackingField: 6178fa6f-ad55-4ca7-b595-2d929a05192c
     <DialogueType>k__BackingField: 1
     <Position>k__BackingField: {x: 627, y: -25}
+    <Item>k__BackingField: {fileID: 0}
   - <ID>k__BackingField: ec9cf3bc-9ca4-45ed-a861-e25ba4b9cc5b
     <Name>k__BackingField: Choose
     <Text>k__BackingField: '?'
     <Choices>k__BackingField:
     - <Text>k__BackingField: Card
-      <NodeID>k__BackingField: ae045d2f-c83b-4f48-97f1-fdc177388f0b
+      <NodeID>k__BackingField: 05c8b378-038b-41fa-adda-c45ba09ec7b2
     - <Text>k__BackingField: Lost virginity
-      <NodeID>k__BackingField: ae045d2f-c83b-4f48-97f1-fdc177388f0b
+      <NodeID>k__BackingField: 909d9050-6f76-4678-a33f-488090879de9
     - <Text>k__BackingField: Your dog
-      <NodeID>k__BackingField: ae045d2f-c83b-4f48-97f1-fdc177388f0b
+      <NodeID>k__BackingField: 7ea653a3-b6bd-4094-aaa2-51277a947d6e
     <GroupID>k__BackingField: 6178fa6f-ad55-4ca7-b595-2d929a05192c
     <DialogueType>k__BackingField: 1
     <Position>k__BackingField: {x: 1051, y: -132}
+    <Item>k__BackingField: {fileID: 0}
   - <ID>k__BackingField: 5731d7b1-f878-4917-87f7-1f10978b68f2
     <Name>k__BackingField: Welcome
     <Text>k__BackingField: Welcome!
@@ -53,6 +58,7 @@ MonoBehaviour:
     <GroupID>k__BackingField: 
     <DialogueType>k__BackingField: 1
     <Position>k__BackingField: {x: 274, y: 201}
+    <Item>k__BackingField: {fileID: 0}
   - <ID>k__BackingField: ae045d2f-c83b-4f48-97f1-fdc177388f0b
     <Name>k__BackingField: Goodbye
     <Text>k__BackingField: Have a nice day!
@@ -61,15 +67,64 @@ MonoBehaviour:
       <NodeID>k__BackingField: 
     <GroupID>k__BackingField: 
     <DialogueType>k__BackingField: 0
-    <Position>k__BackingField: {x: 1534, y: 249}
+    <Position>k__BackingField: {x: 2262, y: 284}
+    <Item>k__BackingField: {fileID: 0}
+  - <ID>k__BackingField: f268b220-aa37-4360-a438-31e8fa9bcafa
+    <Name>k__BackingField: DialogueName
+    <Text>k__BackingField: I hope, that can help you.
+    <Choices>k__BackingField:
+    - <Text>k__BackingField: Thanks, bye!
+      <NodeID>k__BackingField: ae045d2f-c83b-4f48-97f1-fdc177388f0b
+    - <Text>k__BackingField: ...
+      <NodeID>k__BackingField: b16e0cfa-73cc-4ed4-80ca-af82a0d7d2f7
+    <GroupID>k__BackingField: 455ade0c-4b3f-4d3c-89e5-9ef51d4ce490
+    <DialogueType>k__BackingField: 1
+    <Position>k__BackingField: {x: 1892, y: -264}
+    <Item>k__BackingField: {fileID: 0}
+  - <ID>k__BackingField: 909d9050-6f76-4678-a33f-488090879de9
+    <Name>k__BackingField: LostVirginity
+    <Text>k__BackingField: I can't help you with it.
+    <Choices>k__BackingField:
+    - <Text>k__BackingField: Next Dialogue
+      <NodeID>k__BackingField: ae045d2f-c83b-4f48-97f1-fdc177388f0b
+    <GroupID>k__BackingField: 
+    <DialogueType>k__BackingField: 0
+    <Position>k__BackingField: {x: 1581, y: 7}
+    <Item>k__BackingField: {fileID: 0}
+  - <ID>k__BackingField: 7ea653a3-b6bd-4094-aaa2-51277a947d6e
+    <Name>k__BackingField: StartBattle
+    <Text>k__BackingField: Grrr
+    <Choices>k__BackingField: []
+    <GroupID>k__BackingField: 
+    <DialogueType>k__BackingField: 3
+    <Position>k__BackingField: {x: 1591, y: 292}
+    <Item>k__BackingField: {fileID: 0}
+  - <ID>k__BackingField: 05c8b378-038b-41fa-adda-c45ba09ec7b2
+    <Name>k__BackingField: Item
+    <Text>k__BackingField: I can't give you a card, but i can give you an item.
+    <Choices>k__BackingField:
+    - <Text>k__BackingField: Next Dialogue
+      <NodeID>k__BackingField: f268b220-aa37-4360-a438-31e8fa9bcafa
+    <GroupID>k__BackingField: 455ade0c-4b3f-4d3c-89e5-9ef51d4ce490
+    <DialogueType>k__BackingField: 2
+    <Position>k__BackingField: {x: 1469, y: -318}
+    <Item>k__BackingField: {fileID: 11400000, guid: 3e65a72bb029e0d418ec374d9a6dab9b,
+      type: 2}
   <OldGroupNames>k__BackingField:
   - Choosing
+  - TakeItem
   <OldUngroupedNodeNames>k__BackingField:
   - Welcome
   - Goodbye
+  - LostVirginity
+  - StartBattle
   <OldGroupedNodeNames>k__BackingField:
     list:
     - Key: Choosing
       Value:
       - Needsmth
       - Choose
+    - Key: TakeItem
+      Value:
+      - DialogueName
+      - Item

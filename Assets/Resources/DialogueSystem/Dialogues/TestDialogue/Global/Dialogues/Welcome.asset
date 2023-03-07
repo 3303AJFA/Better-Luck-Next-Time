@@ -21,5 +21,6 @@ MonoBehaviour:
   - <Text>k__BackingField: Bye
     <NextDialogue>k__BackingField: {fileID: 11400000, guid: 33a38f0e50e775d4e91eaec75917329d,
       type: 2}
+  <Item>k__BackingField: {fileID: 0}
   <DialogueType>k__BackingField: 1
   <IsStartingDialogue>k__BackingField: 1

@@ -1,9 +1,12 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 namespace Game.DialogueSystem
 {
+    using BattleSystem;
+    using Player.Inventory;
     using Visual;
     using DS.ScriptableObjects;
     using DS.Enumerations;
@@ -14,6 +17,9 @@ namespace Game.DialogueSystem
 
         [Header("Visual")]
         [SerializeField] private DialogueVisual Visual;
+
+        [Header("Battle")]
+        [SerializeField, NaughtyAttributes.Scene] private int BattleSceneID;
 
         private DSDialogueContainerSO currentDialogueContainer;
         private DSDialogueSO currentDialogue;
@@ -59,6 +65,26 @@ namespace Game.DialogueSystem
                 }
 
                 Visual.SetPlayerCurrent(answers);
+            }
+            else if(currentDialogue.DialogueType == DSDialogueType.TakeItemChoice)
+            {
+                PlayerInventory.Instance.AddItem(currentDialogue.Item);
+
+                DSDialogueSO next = currentDialogue.Choices[0].NextDialogue;
+                if (next != null)
+                {
+                    currentDialogue = next;
+
+                    ShowCurrentDialogue();
+                }
+                else
+                {
+                    EndDialogue();
+                }
+            }
+            else if(currentDialogue.DialogueType == DSDialogueType.StartBattleChoice)
+            {
+                SceneManager.LoadScene(BattleSceneID);
             }
         }
         private void ShowCurrentDialogue()

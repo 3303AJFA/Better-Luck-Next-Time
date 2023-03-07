@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace Game.BattleSystem.Cards.Attack
 {
-    [CreateAssetMenu(fileName = "Standart attack card", menuName = "Game/Card/new Standart attack card")]
+    [CreateAssetMenu(fileName = "Standart card", menuName = "Game/Card/new Standart card")]
     public class StandartAttackCard : CardSO
     {
         public override void Activate()

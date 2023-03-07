@@ -166,6 +166,7 @@ namespace DS.Utilities
                 ID = node.ID,
                 Name = node.DialogueName,
                 Choices = choices,
+                Item = node.Item,
                 Text = node.Text,
                 GroupID = node.Group?.ID,
                 DialogueType = node.DialogueType,
@@ -196,6 +197,7 @@ namespace DS.Utilities
                 node.DialogueName,
                 node.Text,
                 ConvertNodeChoicesToDialogueChoices(node.Choices),
+                node.Item,
                 node.DialogueType,
                 node.IsStartingNode()
             );
@@ -332,7 +334,8 @@ namespace DS.Utilities
                 node.ID = nodeData.ID;
                 node.Choices = choices;
                 node.Text = nodeData.Text;
-
+                node.Item = nodeData.Item;
+                Debug.Log(node.Item);
                 node.Draw();
 
                 graphView.AddElement(node);

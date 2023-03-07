@@ -1,6 +1,7 @@
 using System;
 using UnityEditor.Experimental.GraphView;
 using UnityEngine.UIElements;
+using UnityEditor.UIElements;
 
 namespace DS.Utilities
 {
@@ -61,6 +62,22 @@ namespace DS.Utilities
             textArea.multiline = true;
 
             return textArea;
+        }
+
+        public static ObjectField CreateObjectField(string name, Type valueType, EventCallback<ChangeEvent<UnityEngine.Object>> onValueChanged)
+        {
+            ObjectField objectField = new ObjectField()
+            {
+                name = name,
+                objectType = valueType
+            };
+
+            if (onValueChanged != null)
+            {
+                objectField.RegisterValueChangedCallback(onValueChanged);
+            }
+
+            return objectField;
         }
     }
 }

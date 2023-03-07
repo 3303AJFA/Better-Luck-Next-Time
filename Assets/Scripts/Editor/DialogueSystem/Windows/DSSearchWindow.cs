@@ -37,6 +37,16 @@ namespace DS.Windows
                     userData = DSDialogueType.MultipleChoice,
                     level = 2
                 },
+                new SearchTreeEntry(new GUIContent("Take Item Choice", indentationIcon))
+                {
+                    userData = DSDialogueType.TakeItemChoice,
+                    level = 2
+                },
+                new SearchTreeEntry(new GUIContent("Start Battle Choice", indentationIcon))
+                {
+                    userData = DSDialogueType.StartBattleChoice,
+                    level = 2
+                },
                 new SearchTreeGroupEntry(new GUIContent("Dialogue Groups"), 1),
                 new SearchTreeEntry(new GUIContent("Single Group", indentationIcon))
                 {
@@ -51,12 +61,13 @@ namespace DS.Windows
         public bool OnSelectEntry(SearchTreeEntry SearchTreeEntry, SearchWindowContext context)
         {
             Vector2 localMousePosition = graphView.GetLocalMousePosition(context.screenMousePosition, true);
+            string defaultName = "DialogueName";
 
             switch (SearchTreeEntry.userData)
             {
                 case DSDialogueType.SingleChoice:
                 {
-                    DSSingleChoiceNode singleChoiceNode = (DSSingleChoiceNode) graphView.CreateNode("DialogueName", DSDialogueType.SingleChoice, localMousePosition);
+                    DSSingleChoiceNode singleChoiceNode = (DSSingleChoiceNode) graphView.CreateNode(defaultName, DSDialogueType.SingleChoice, localMousePosition);
 
                     graphView.AddElement(singleChoiceNode);
 
@@ -65,12 +76,30 @@ namespace DS.Windows
 
                 case DSDialogueType.MultipleChoice:
                 {
-                    DSMultipleChoiceNode multipleChoiceNode = (DSMultipleChoiceNode) graphView.CreateNode("DialogueName", DSDialogueType.MultipleChoice, localMousePosition);
+                    DSMultipleChoiceNode multipleChoiceNode = (DSMultipleChoiceNode) graphView.CreateNode(defaultName, DSDialogueType.MultipleChoice, localMousePosition);
 
                     graphView.AddElement(multipleChoiceNode);
 
                     return true;
                 }
+
+                case DSDialogueType.TakeItemChoice:
+                    {
+                        DSTakeItemChoiceNode takeItemChoiceNode = (DSTakeItemChoiceNode)graphView.CreateNode(defaultName, DSDialogueType.TakeItemChoice, localMousePosition);
+
+                        graphView.AddElement(takeItemChoiceNode);
+
+                        return true;
+                    }
+
+                case DSDialogueType.StartBattleChoice:
+                    {
+                        DSStartBattleChoiceNode startBattleChoiceNode = (DSStartBattleChoiceNode)graphView.CreateNode(defaultName, DSDialogueType.StartBattleChoice, localMousePosition);
+
+                        graphView.AddElement(startBattleChoiceNode);
+
+                        return true;
+                    }
 
                 case Group _:
                 {
